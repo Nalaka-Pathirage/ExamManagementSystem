@@ -27,7 +27,8 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// authenticationService.doLogin(request, response);
+		// rendering login page
+		authenticationService.doLoadLoginPage(request, response);
 	}
 
 	// controller endpoint for user authentication

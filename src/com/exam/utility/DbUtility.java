@@ -38,8 +38,8 @@ public class DbUtility {
 		 */
 
 		properties.setProperty("database.url", "jdbc:mysql://localhost:3306/exam_management_schema?useSSL=false");
-		properties.setProperty("database.user", "");
-		properties.setProperty("database.password", "");
+		properties.setProperty("database.user", "******");
+		properties.setProperty("database.password", "******");
 
 		return properties;
 	}

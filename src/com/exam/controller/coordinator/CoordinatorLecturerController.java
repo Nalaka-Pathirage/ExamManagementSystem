@@ -26,15 +26,7 @@ public class CoordinatorLecturerController extends HttpServlet {
 	// retrive coordinator lecturer management page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		coordinatorLecturerService.doLoadLecturerPage(request, response);
-	}
-
-	// submit lecturers
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// to be implemented
 	}
 
 }

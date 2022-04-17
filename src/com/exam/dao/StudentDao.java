@@ -34,15 +34,16 @@ public class StudentDao {
 
 			if (rs.next() != false) {
 
-				String n = rs.getString("requested_date_time").replace(' ', 'T');
-				System.out.println(n);
-
 				registration = new Registration(rs.getInt("registration_id"),
 						LocalDateTime.parse(rs.getString("requested_date_time").replace(' ', 'T')),
 						rs.getBoolean("admin_approved"),
-						LocalDateTime.parse(rs.getString("approved_date_time").replace(' ', 'T')),
+						rs.getString("approved_date_time") != null
+								? LocalDateTime.parse(rs.getString("approved_date_time").replace(' ', 'T'))
+								: null,
 						rs.getDouble("payment_amount"),
-						LocalDateTime.parse(rs.getString("payment_date_time").replace(' ', 'T')),
+						rs.getString("payment_date_time") != null
+								? LocalDateTime.parse(rs.getString("payment_date_time").replace(' ', 'T'))
+								: null,
 						rs.getBoolean("payment_status"), rs.getBoolean("mail_sent"),
 						rs.getBoolean("registration_status"));
 
@@ -55,5 +56,20 @@ public class StudentDao {
 		}
 
 		return student;
+	}
+
+	// deleting student
+	public void delete(int id) {
+
+		try (Connection connection = dbUtility.doGetDbConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("delete from student where student_id = ?");) {
+
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

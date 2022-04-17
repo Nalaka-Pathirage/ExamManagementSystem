@@ -4,3 +4,7 @@ build/
 .settings
 target/**
 
+/target/
+
+.idea/
+.metadata/

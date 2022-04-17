@@ -1,12 +1,16 @@
 package com.exam.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.exam.model.Course;
 import com.exam.model.Login;
 import com.exam.model.Registration;
 import com.exam.model.Student;
@@ -105,6 +109,69 @@ public class RegistrationDao {
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+
+	// updating the admin approval status
+	public void updateAdminApprovalStatus(int studentId) {
+
+		try (Connection connection = dbUtility.doGetDbConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("update registration set admin_approved='1' where student_id=?");) {
+
+			preparedStatement.setInt(1, studentId);
+			preparedStatement.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// find records with pending payment status
+	public List<Student> getPendingPaymentRecords() {
+
+		List<Student> students = new ArrayList<Student>();
+
+		try (Connection connection = dbUtility.doGetDbConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement("select * from registration reg \n"
+						+ "inner join student st on reg.student_id = st.student_id\n"
+						+ "inner join course co on co.course_id = st.course_id\n"
+						+ "where reg.payment_status = '0' and reg.admin_approved = '1';");) {
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next() != false) {
+				Student student = new Student(rs.getInt("student_id"), rs.getString("first_name"),
+						rs.getString("last_name"), rs.getString("nic"), rs.getString("mobile"), rs.getString("address"),
+						null,
+						new Registration(rs.getInt("registration_id"),
+								LocalDateTime.parse(rs.getString("approved_date_time").replace(' ', 'T')),
+								rs.getDouble("payment_amount"), rs.getBoolean("mail_sent")),
+						new Course(rs.getInt("course_id"), rs.getString("code"), rs.getString("name")));
+				students.add(student);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		return students;
+	}
+
+	// insert file
+	public void insertFile(int studentId, InputStream inputStream) {
+
+		try (Connection connection = dbUtility.doGetDbConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("update registration set payment_status = 1, registration_status = 1,"
+								+ " payment_receipt = ? where student_id = ?;");) {
+
+			preparedStatement.setBlob(1, inputStream);
+			preparedStatement.setInt(2, studentId);
+			preparedStatement.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

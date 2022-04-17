@@ -18,6 +18,21 @@ public class Registration {
 		super();
 	}
 
+	public Registration(Integer registrationId, LocalDateTime requestedDateTime) {
+		super();
+		this.registrationId = registrationId;
+		this.requestedDateTime = requestedDateTime;
+	}
+
+	public Registration(Integer registrationId, LocalDateTime approvedDateTime, Double paymentAmount,
+			Boolean mailSent) {
+		super();
+		this.registrationId = registrationId;
+		this.approvedDateTime = approvedDateTime;
+		this.paymentAmount = paymentAmount;
+		this.mailSent = mailSent;
+	}
+
 	public Registration(Integer registrationId, LocalDateTime requestedDateTime, Boolean adminApproved,
 			LocalDateTime approvedDateTime, Double paymentAmount, LocalDateTime paymentDateTime, Boolean paymentStatus,
 			Boolean mailSent, Boolean registrationStatus) {

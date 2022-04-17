@@ -8,26 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exam.service.admin.AdminHomeService;
+import com.exam.service.admin.AdminService;
 
 @WebServlet("/AdminHome")
 public class AdminHomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private AdminHomeService adminHomeService;
+	private AdminService adminService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.adminHomeService = new AdminHomeService();
+		this.adminService = new AdminService();
 	}
 
 	// retrive admin home page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		adminHomeService.doLoadHomePage(request, response);
+		adminService.doLoadHomePage(request, response);
 	}
 
 }

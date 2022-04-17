@@ -48,4 +48,51 @@ public class LoginDao {
 		return login;
 	}
 
+	// insert login
+	public void insert(Login login) {
+
+		try (Connection connection = dbUtility.doGetDbConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(
+						"insert into login (user_name, password, admin_id, coodinator_id, student_id) values (?, ?, ?, ?, ?)");) {
+
+			preparedStatement.setString(1, login.getUserName());
+			preparedStatement.setString(2, login.getPassword());
+
+			if (login.getAdmin() != null) {
+				preparedStatement.setInt(3, login.getAdmin().getAdminId());
+				preparedStatement.setString(4, null);
+				preparedStatement.setString(5, null);
+			} else if (login.getCoordinator() != null) {
+				preparedStatement.setString(3, null);
+				preparedStatement.setInt(4, login.getCoordinator().getCoordinatorId());
+				preparedStatement.setString(5, null);
+			} else {
+				preparedStatement.setString(3, null);
+				preparedStatement.setString(4, null);
+				preparedStatement.setInt(5, login.getStudent().getStudentId());
+			}
+
+			preparedStatement.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// update login password
+	public void update(Login login) {
+
+		try (Connection connection = dbUtility.doGetDbConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("update login set password = ? where user_name = ?;");) {
+
+			preparedStatement.setString(1, login.getPassword());
+			preparedStatement.setString(2, login.getUserName());
+			preparedStatement.executeUpdate();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

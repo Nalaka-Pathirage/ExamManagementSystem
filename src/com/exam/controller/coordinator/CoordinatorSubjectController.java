@@ -26,15 +26,7 @@ public class CoordinatorSubjectController extends HttpServlet {
 	// retrive coordinator subject management page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		coordinatorSubjectService.doLoadSubjectPage(request, response);
-	}
-
-	// submit subjects
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// to be implemented
 	}
 
 }

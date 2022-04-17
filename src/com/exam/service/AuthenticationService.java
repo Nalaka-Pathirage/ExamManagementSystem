@@ -1,12 +1,15 @@
 package com.exam.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.exam.dao.AdminDao;
 import com.exam.dao.LoginDao;
 import com.exam.dao.StudentDao;
 import com.exam.model.Login;
@@ -17,10 +20,27 @@ public class AuthenticationService {
 
 	private LoginDao loginDao;
 	private StudentDao studentDao;
+	private AdminDao adminDao;
 
 	public AuthenticationService() {
 		this.loginDao = new LoginDao();
 		this.studentDao = new StudentDao();
+		this.adminDao = new AdminDao();
+	}
+
+	/**
+	 * Loading user login page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void doLoadLoginPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -51,7 +71,7 @@ public class AuthenticationService {
 			// handling invalid usernme or password
 		} else {
 			request.setAttribute("isAuthnticated", false);
-			dispatcher = request.getRequestDispatcher("/login.jsp");
+			dispatcher = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
 		}
 
 		dispatcher.forward(request, response);
@@ -68,7 +88,12 @@ public class AuthenticationService {
 	public void doLogout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+		// obtaining http session
+		HttpSession session = request.getSession();
+		// discard user session
+		session.invalidate();
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -83,16 +108,33 @@ public class AuthenticationService {
 
 		RequestDispatcher dispatcher;
 
+		// obtaining http session
+		HttpSession session = request.getSession();
+
 		// admin login
 		if (login.getAdmin() != null) {
+
+			// attaching user with session
+			session.setAttribute("loggedInUser", login.getAdmin());
+			// fetching pending approval, students
+			List<Student> students = adminDao.getPendingAdminApprovals();
+
+			// setting pending approval stduents inside request scope
+			request.setAttribute("students", students);
 			dispatcher = request.getRequestDispatcher("/WEB-INF/view/admin/admin_home.jsp");
 
 			// coordinator login
 		} else if (login.getCoordinator() != null) {
+
+			// attaching user with session
+			session.setAttribute("loggedInUser", login.getCoordinator());
 			dispatcher = request.getRequestDispatcher("/WEB-INF/view/coordinator/coordinator_home.jsp");
 
 			// student login
 		} else {
+
+			// attaching user with session
+			session.setAttribute("loggedInUser", login.getStudent());
 			dispatcher = routingStudentOnRegistrationStatus(request, login);
 		}
 

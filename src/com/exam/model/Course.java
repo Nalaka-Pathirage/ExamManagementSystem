@@ -21,6 +21,13 @@ public class Course {
 		this.courseId = courseId;
 	}
 
+	public Course(Integer courseId, String code, String name) {
+		super();
+		this.courseId = courseId;
+		this.code = code;
+		this.name = name;
+	}
+
 	public Course(Integer courseId, String code, String name, Double duration, LocalDateTime start, String description,
 			Double fee) {
 		super();

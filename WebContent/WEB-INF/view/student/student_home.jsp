@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<!-- Page content -->
-		<div class="row"">
+		<div class="row">
 			<div class="col">
 				<!-- Admin approval is pending -->
 				<c:if test="${requestScope.isAdminApproved == false}">
@@ -39,11 +39,12 @@
 								This is final step of the registration process. <br> Happy
 								Learning!
 							</p>
-							<form action="${contextPath}/payment" method="post"
+							<form action="${contextPath}/Student/Payment" method="post"
 								enctype="multipart/form-data">
 								<div class="input-group">
 									<input type="file" class="form-control" id="inputGroupFile04"
-										aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+										aria-describedby="inputGroupFileAddon04" aria-label="Upload"
+										name="paymentReceipt" required>
 									<button class="btn btn-outline-dark" type="submit"
 										id="inputGroupFileAddon04">Upload</button>
 								</div>

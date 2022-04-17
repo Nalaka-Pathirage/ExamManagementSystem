@@ -17,6 +17,14 @@ public class Coordinator {
 		super();
 		this.coordinatorId = coordinatorId;
 	}
+	
+	public Coordinator(String firstName, String lastName, String nic, String mobile) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nic = nic;
+		this.mobile = mobile;
+	}
 
 	public Coordinator(Integer coordinatorId, String firstName, String lastName, String nic, String mobile) {
 		super();
