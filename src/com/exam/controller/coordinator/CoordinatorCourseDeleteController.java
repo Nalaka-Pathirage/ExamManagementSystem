@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exam.service.coordinator.CoordinatorCourseService;
 
-@WebServlet("/Coordinator/Courses")
-public class CoordinatorCourseController extends HttpServlet {
+@WebServlet("/Coordinator/CoursesDelete")
+public class CoordinatorCourseDeleteController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,11 +23,11 @@ public class CoordinatorCourseController extends HttpServlet {
 		coordinatorCourseService = new CoordinatorCourseService();
 	}
 
-	// controller endpoint to retrive coordinator course management page
+	// controller endpoint to delete course
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		coordinatorCourseService.doLoadCoursePage(request, response);
+		coordinatorCourseService.doDeleteCourse(request, response);
 	}
 
 }

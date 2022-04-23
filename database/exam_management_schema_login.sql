@@ -32,9 +32,9 @@ CREATE TABLE `login` (
   KEY `FK_ADMIN_ID_idx` (`admin_id`),
   KEY `FK_LOGIN_COORDINATOR_idx` (`coodinator_id`),
   KEY `FK_LOGIN_STUDENT_idx` (`student_id`),
-  CONSTRAINT `FK_LOGIN_ADMIN` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_LOGIN_COORDINATOR` FOREIGN KEY (`coodinator_id`) REFERENCES `coodinator` (`coordinator_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_LOGIN_STUDENT` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_LOGIN_ADMIN` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_LOGIN_COORDINATOR` FOREIGN KEY (`coodinator_id`) REFERENCES `coodinator` (`coordinator_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_LOGIN_STUDENT` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -44,7 +44,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES ('ashok@gmail.com','secret',NULL,NULL,1),('difsfsfan@gmail.com','secret',NULL,NULL,8),('dilshan@gmail.com','secret',NULL,1,NULL),('helan@gmail.com','secret',1,NULL,NULL),('nirmal@gmail.com','secret',NULL,NULL,2),('tehan@gmail.com','secret',NULL,NULL,3);
+INSERT INTO `login` VALUES ('ashok@gmail.com','secret',NULL,NULL,1),('dilshan@gmail.com','secret',NULL,9,NULL),('helan@gmail.com','secret',1,NULL,NULL),('nirmal@gmail.com','secret',NULL,NULL,2),('tehan@gmail.com','secret',NULL,NULL,3);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-30 19:40:15
+-- Dump completed on 2022-04-23 12:09:55

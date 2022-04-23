@@ -27,11 +27,11 @@ CREATE TABLE `course` (
   `code` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   `duration` double NOT NULL,
-  `start` datetime NOT NULL,
+  `start` date NOT NULL,
   `description` varchar(220) NOT NULL,
   `fee` double NOT NULL,
   PRIMARY KEY (`course_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'COMPM001','Msc. Computer Science',2,'2022-03-30 03:22:56','Offered by university of Curtin.',600000),(2,'COMPB001','Bsc. Computer Science',4,'2022-03-30 03:22:56','Offered by university of Curtin.',1200000),(3,'SEB000019','Bsc. Software Engineering',3,'2022-03-30 03:22:56','Offered by university of Curtin.',1000000);
+INSERT INTO `course` VALUES (1,'COMPM001','Msc. Computer Science',2,'2022-03-30','Offered by university of Curtin.',600000),(2,'COMPB001','Bsc. Computer Science',4,'2022-03-30','Offered by university of Curtin.',1200000),(3,'SEB000019','Bsc. Software Engineering',3,'2022-03-30','Offered by university of Curtin.',1000000);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-30 19:40:14
+-- Dump completed on 2022-04-23 12:09:55

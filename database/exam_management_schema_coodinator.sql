@@ -29,7 +29,7 @@ CREATE TABLE `coodinator` (
   `nic` varchar(45) NOT NULL,
   `mobile` varchar(45) NOT NULL,
   PRIMARY KEY (`coordinator_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `coodinator` (
 
 LOCK TABLES `coodinator` WRITE;
 /*!40000 ALTER TABLE `coodinator` DISABLE KEYS */;
-INSERT INTO `coodinator` VALUES (1,'Dilshan','Silva','941992005v','+94705679403');
+INSERT INTO `coodinator` VALUES (2,'wefwef','wefwefwe','wefwefwe','wefwefwe'),(3,'eqweq','eqweq','eqwedq','deqwdqw'),(4,'dqwdqw','dwdqwd','wdqw','dwqdq'),(9,'Dilshan','Weerasinghe','893232007v','+94774354654');
 /*!40000 ALTER TABLE `coodinator` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-30 19:40:15
+-- Dump completed on 2022-04-23 12:09:55

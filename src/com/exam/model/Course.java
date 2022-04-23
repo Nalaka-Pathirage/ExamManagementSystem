@@ -1,6 +1,6 @@
 package com.exam.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Course {
 
@@ -8,7 +8,7 @@ public class Course {
 	private String code;
 	private String name;
 	private Double duration;
-	private LocalDateTime start;
+	private LocalDate start;
 	private String description;
 	private Double fee;
 
@@ -27,8 +27,18 @@ public class Course {
 		this.code = code;
 		this.name = name;
 	}
+	
+	public Course(String code, String name, Double duration, LocalDate start, String description, Double fee) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.duration = duration;
+		this.start = start;
+		this.description = description;
+		this.fee = fee;
+	}
 
-	public Course(Integer courseId, String code, String name, Double duration, LocalDateTime start, String description,
+	public Course(Integer courseId, String code, String name, Double duration, LocalDate start, String description,
 			Double fee) {
 		super();
 		this.courseId = courseId;
@@ -72,11 +82,11 @@ public class Course {
 		this.duration = duration;
 	}
 
-	public LocalDateTime getStart() {
+	public LocalDate getStart() {
 		return start;
 	}
 
-	public void setStart(LocalDateTime start) {
+	public void setStart(LocalDate start) {
 		this.start = start;
 	}
 

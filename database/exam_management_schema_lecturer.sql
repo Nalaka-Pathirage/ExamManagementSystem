@@ -30,7 +30,7 @@ CREATE TABLE `lecturer` (
   `mobile` varchar(45) NOT NULL,
   `subject_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`lecturer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `lecturer` (
 
 LOCK TABLES `lecturer` WRITE;
 /*!40000 ALTER TABLE `lecturer` DISABLE KEYS */;
+INSERT INTO `lecturer` VALUES (1,'Nuwan Kodagoda','Computer Science','PhD, Computer Science','+94703225679',1);
 /*!40000 ALTER TABLE `lecturer` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-30 19:40:14
+-- Dump completed on 2022-04-23 12:09:54

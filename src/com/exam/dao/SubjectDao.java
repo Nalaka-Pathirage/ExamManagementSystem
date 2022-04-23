@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class SubjectDao {
 
 				Course course = new Course(rs.getInt("course_id"), rs.getString("code"), rs.getString("name"),
 						rs.getDouble("duration"),
-						rs.getString("start") != null ? LocalDateTime.parse(rs.getString("start").replace(' ', 'T'))
+						rs.getString("start") != null ? LocalDate.parse(rs.getString("start").replace(' ', 'T'))
 								: null,
 						rs.getString("description"), rs.getDouble("fee"));
 
@@ -72,7 +73,7 @@ public class SubjectDao {
 
 				Course course = new Course(rs.getInt("course_id"), rs.getString("code"), rs.getString("name"),
 						rs.getDouble("duration"),
-						rs.getString("start") != null ? LocalDateTime.parse(rs.getString("start").replace(' ', 'T'))
+						rs.getString("start") != null ? LocalDate.parse(rs.getString("start").replace(' ', 'T'))
 								: null,
 						rs.getString("description"), rs.getDouble("fee"));
 
