@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exam.service.coordinator.CoordinatorHomeService;
 
-@WebServlet("/CoordinatorHome")
+@WebServlet("/Coordinator/Home")
 public class CoordinatorHomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

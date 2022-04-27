@@ -27,7 +27,7 @@
 		</div>
 		<div class="row">
 			<!-- Extract values from request instance -->
-			<c:set var="lecturer" value="${requestScope.subject}" />
+			<c:set var="subject" value="${requestScope.subject}" />
 			<!-- Data Edit/Submit Form -->
 			<form method="post"
 				action="${contextPath}/Coordinator/EditSubject?subjectId=${subject.subjectId}">
@@ -40,6 +40,16 @@
 					<label for="subjectCode" class="form-label">Subject Code :</label>
 					<input type="text" class="form-control" id="subjectCode"
 						name="subjectCode" value="${subject.subjectCode}">
+				</div>
+				<div class="mb-3">
+					<label for="course" class="form-label">Assigned Course :</label> <select
+						class="form-select" name="course">
+						<option value="${subject.course.courseId}" selected><c:out
+								value="${not empty subject.course.name ? subject.course.name : 'NOT ASSIGNED'}" /></option>
+						<c:forEach items="${requestScope.courses}" var="course">
+							<option value="${course.courseId}">${course.name}</option>
+						</c:forEach>
+					</select>
 				</div>
 				<div class="d-grid gap-2 col-6 mx-auto">
 					<button type="submit" class="btn btn-outline-danger">Edit

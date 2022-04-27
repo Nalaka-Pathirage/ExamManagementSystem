@@ -8,29 +8,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exam.service.coordinator.CoordinatorApprovalService;
+import com.exam.service.coordinator.CoordinatorExamQuizService;
 
-@WebServlet("/CoordinatorApprovals")
-public class CoordinatorApprovalController extends HttpServlet {
+@WebServlet("/Coordinator/AddExam")
+public class CoordinatorExamAddController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private CoordinatorApprovalService coordinatorApprovalService;
+	private CoordinatorExamQuizService coordinatorExamQuizService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		coordinatorApprovalService = new CoordinatorApprovalService();
+		coordinatorExamQuizService = new CoordinatorExamQuizService();
 	}
 
-	// retrive admin approval page
+	// retrive coordinator exam management page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		coordinatorApprovalService.doLoadApprovalPage(request, response);
+		coordinatorExamQuizService.doLoadExamAddPage(request, response);
 	}
 
-	// submit admin approval
+	// submit exam
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

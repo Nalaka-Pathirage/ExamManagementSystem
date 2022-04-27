@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add Subjects</title>
+<title>Manage Batches</title>
 <link href="${contextPath}/resource/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -21,35 +21,39 @@
 		<!-- Page content -->
 		<div class="row">
 			<div class="col">
-				<h4 class="p-3 mb-2 bg-light bg-gradien text-dark text-center">Add
-					New Subject</h4>
+				<h4 class="p-3 mb-2 bg-light bg-gradien text-dark text-center">Edit
+					Batch</h4>
 			</div>
 		</div>
 		<div class="row">
-			<!-- Data Submit Form -->
-			<form method="post" action="${contextPath}/Coordinator/AddSubject">
+			<!-- Extract values from request instance -->
+			<c:set var="batch" value="${requestScope.batch}" />
+			<!-- Data Edit/Submit Form -->
+			<form method="post"
+				action="${contextPath}/Coordinator/BatchEdit?batchId=${batch.batchId}">
 				<div class="mb-3">
-					<label for="subjectName" class="form-label">Subject Name :</label>
-					<input type="text" class="form-control" id="subjectName"
-						name="subjectName" placeholder="Enter Subject Name" required>
+					<label for="batchName" class="form-label">Batch Name :</label> <input
+						type="text" class="form-control" id="batchName" name="batchName"
+						value="${batch.batchName}">
 				</div>
 				<div class="mb-3">
-					<label for="subjectCode" class="form-label">Subject Code :</label>
-					<input type="text" class="form-control" id="subjectCode"
-						name="subjectCode" placeholder="Enter Subject Code" required>
+					<label for="batchCode" class="form-label">Batch
+						Code :</label> <input type="text" class="form-control"
+						id="batchCode" name="batchCode"
+						value="${batch.batchCode}">
 				</div>
 				<div class="mb-3">
 					<label for="course" class="form-label">Assigned Course :</label> <select
 						class="form-select" name="course">
-						<option selected>Select Course</option>
+						<option value="${batch.course.courseId}" selected>${batch.course.name}</option>
 						<c:forEach items="${requestScope.courses}" var="course">
 							<option value="${course.courseId}">${course.name}</option>
 						</c:forEach>
 					</select>
 				</div>
 				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="submit" class="btn btn-outline-warning">Add
-						Subject</button>
+					<button type="submit" class="btn btn-outline-warning">Edit
+						Batch</button>
 				</div>
 			</form>
 		</div>

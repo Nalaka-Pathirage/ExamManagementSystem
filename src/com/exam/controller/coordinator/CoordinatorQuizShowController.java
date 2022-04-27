@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exam.service.coordinator.CoordinatorExamQuizService;
 
-@WebServlet("/Coordinator/Exam")
-public class CoordinatorExamController extends HttpServlet {
+@WebServlet("/Coordinator/ShowQuiz")
+public class CoordinatorQuizShowController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,11 +23,11 @@ public class CoordinatorExamController extends HttpServlet {
 		coordinatorExamQuizService = new CoordinatorExamQuizService();
 	}
 
-	// retrive coordinator exam management page
+	// retrive coordinator show quiz page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		coordinatorExamQuizService.doLoadExamPage(request, response);
+		coordinatorExamQuizService.doLoadShowQuiz(request, response);
 	}
 
 }

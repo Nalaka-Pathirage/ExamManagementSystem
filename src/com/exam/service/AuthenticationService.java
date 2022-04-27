@@ -126,6 +126,11 @@ public class AuthenticationService {
 			// coordinator login
 		} else if (login.getCoordinator() != null) {
 
+			List<Student> students = studentDao.findByRegistrationSuccessStatus();
+
+			// setting students in request scope
+			request.setAttribute("students", students);
+
 			// attaching user with session
 			session.setAttribute("loggedInUser", login.getCoordinator());
 			dispatcher = request.getRequestDispatcher("/WEB-INF/view/coordinator/coordinator_home.jsp");

@@ -22,20 +22,20 @@
 		<div class="row">
 			<div class="col">
 				<div class="p-3 mb-2 bg-light text-dark">
-					<h3>Creating a Quiz</h3>
+					<h3>Creating an Exam</h3>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<!-- Quiz Generation Form -->
+			<!-- Exam Generation Form -->
 			<form method="post"
-				action="${contextPath}/Coordinator/AddQuiz?flag=G">
+				action="${contextPath}/Coordinator/AddExam?flag=G">
 				<div class="row">
 					<div class="col">
 						<div class="mb-3">
-							<label for="subject" class="form-label">Subject Name :</label> <select
-								class="form-select" name="subject">
-								<option selected>${sessionScope.generatedExamQuiz.subject.subjectName}</option>
+							<label for="course" class="form-label">Subject Name :</label> <select
+								class="form-select" name="course">
+								<option selected>Select Subject</option>
 								<c:forEach items="${requestScope.subjects}" var="subject">
 									<option value="${subject.subjectId}">${subject.subjectName}</option>
 								</c:forEach>
@@ -44,19 +44,19 @@
 					</div>
 					<div class="col">
 						<div class="mb-3">
-							<label for="qName" class="form-label">Quiz Name :</label> <input
-								type="text" class="form-control" id="qName" name="qName"
-								placeholder="${sessionScope.generatedExamQuiz.examQuizName}">
+							<label for="eName" class="form-label">Exam Name :</label> <input
+								type="text" class="form-control" id="eName" name="eName"
+								placeholder="Enter Exam Name">
 						</div>
 						<div class="d-grid gap-2 col-6 mx-auto">
 							<button type="submit" class="btn btn-outline-info">Generate
-								Quiz</button>
+								Exam</button>
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
-		<!-- Quiz Visualization Grid -->
+		<!-- Exam Visualization Grid -->
 		<div class="row">
 			<div class="col">
 				<table class="table table-success table-striped">
@@ -65,29 +65,28 @@
 							<th scope="col">Question</th>
 							<th scope="col">Edit</th>
 							<th scope="col">View</th>
-							<th scope="col">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
 						<!-- populating table body -->
-						<c:forEach items="${sessionScope.quizExamWrapper.questions}" var="question">
+						<!-- <c:forEach items="${requestScope.questions}" var="question">
 							<tr>
-								<td scope="col">${question.questionNumber}</td>
+								<td scope="col">${question.number}</td>
 								<td scope="col"><a class="text-info" href="">View</a></td>
 								<td scope="col"><a class="text-info" href="">Edit</a></td>
 								<td scope="col"><a class="text-danger" href="">Delete</a></td>
 							</tr>
-						</c:forEach>
+						</c:forEach> -->
 					</tbody>
 				</table>
-				<!-- Complete Quiz Submit Form -->
+				<!-- Complete Exam Submit Form -->
 				<form method="post"
-					action="${contextPath}/Coordinator/AddQuiz?flag=S">
+					action="${contextPath}/Coordinator/AddExam?flag=T">
 					<div class="row">
 						<div class="col">
 							<div class="d-grid gap-2 col-6 mx-auto">
 								<button type="submit" class="btn btn-outline-danger">Submit
-									Quiz</button>
+									Exam</button>
 							</div>
 						</div>
 					</div>
@@ -99,13 +98,13 @@
 		<div class="row">
 			<!-- Question Add Form -->
 			<form method="post"
-				action="${contextPath}/Coordinator/AddQuiz?flag=A">
+				action="${contextPath}/Coordinator/AddExam?submit=F">
 				<div class="row">
 					<div class="col">
 						<div class="mb-3">
-							<label for="qNumber" class="form-label">Quiz Name :</label> <input
-								type="text" class="form-control" id="qName" name="qName"
-								value="${sessionScope.generatedExamQuiz.examQuizName}" readonly>
+							<label for="eNumber" class="form-label">Exam Name :</label> <input
+								type="text" class="form-control" id="eName" name="eName"
+								value="Mock Exam" readonly>
 						</div>
 					</div>
 					<div class="col">
@@ -130,9 +129,9 @@
 								placeholder="Please Add Answers Comma (,) Seperated">
 						</div>
 						<div class="mb-3">
-							<label for="correctAnswer" class="form-label">Correct
+							<label for="correctAnswers" class="form-label">Correct
 								Answer :</label> <input type="text" class="form-control"
-								id="correctAnswer" name="correctAnswer"
+								id="correctAnswers" name="correctAnswers"
 								placeholder="Please Enter Correct Answer">
 						</div>
 						<div class="d-grid gap-2 col-6 mx-auto">

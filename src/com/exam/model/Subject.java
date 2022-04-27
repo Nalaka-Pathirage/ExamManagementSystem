@@ -7,7 +7,7 @@ public class Subject {
 	private String subjectCode;
 	private Course course;
 	private Lecturer lecturer;
-	
+
 	public Subject() {
 		super();
 	}
@@ -16,7 +16,7 @@ public class Subject {
 		super();
 		this.subjectId = subjectId;
 	}
-	
+
 	public Subject(String subjectName, String subjectCode) {
 		super();
 		this.subjectName = subjectName;
@@ -29,7 +29,14 @@ public class Subject {
 		this.subjectName = subjectName;
 		this.subjectCode = subjectCode;
 	}
-	
+
+	public Subject(String subjectName, String subjectCode, Course course) {
+		super();
+		this.subjectName = subjectName;
+		this.subjectCode = subjectCode;
+		this.course = course;
+	}
+
 	public Subject(Integer subjectId, String subjectName, String subjectCode, Course course) {
 		super();
 		this.subjectId = subjectId;

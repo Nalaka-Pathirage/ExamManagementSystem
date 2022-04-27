@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Manage Approvals</title>
+<title>Manage Quizes</title>
 <link href="${contextPath}/resource/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -21,10 +21,33 @@
 		<!-- Page content -->
 		<div class="row">
 			<div class="col">
-				<h3>This is Approvals page!</h3>
+				<div class="p-3 mb-2 bg-light text-dark">
+					<h3>Available Quizes</h3>
+				</div>
 			</div>
 		</div>
-		<!-- Footer -->
+		<div class="row">
+			<div class="col">
+				<!-- Quiz Add Function -->
+				<a class="text-danger" href="${contextPath}/Coordinator/AddQuiz"><b>Create
+						New Qiz</b></a>
+			</div>
+			<div class="col">
+				<!-- Quiz Search -->
+				<form class="row g-3" method="post" action="">
+					<div class="col-auto">
+						<label for="searchBox" class="visually-hidden">Search</label> <input
+							type="text" class="form-control" id="searchBox"
+							placeholder="Enter Name">
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-dark mb-3">Search</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row"></div>
+		<!-- Page footer -->
 		<div class="fixed-bottom">
 			<footer>
 				<p align="center">© 2022 eLearning</p>

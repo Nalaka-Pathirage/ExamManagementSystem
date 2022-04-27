@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +38,7 @@ public class SubjectDao {
 
 				Course course = new Course(rs.getInt("course_id"), rs.getString("code"), rs.getString("name"),
 						rs.getDouble("duration"),
-						rs.getString("start") != null ? LocalDate.parse(rs.getString("start").replace(' ', 'T'))
-								: null,
+						rs.getString("start") != null ? LocalDate.parse(rs.getString("start").replace(' ', 'T')) : null,
 						rs.getString("description"), rs.getDouble("fee"));
 
 				Lecturer lecturer = new Lecturer(rs.getInt("lecturer_id"), rs.getString("lecturer_name"),
@@ -73,8 +72,7 @@ public class SubjectDao {
 
 				Course course = new Course(rs.getInt("course_id"), rs.getString("code"), rs.getString("name"),
 						rs.getDouble("duration"),
-						rs.getString("start") != null ? LocalDate.parse(rs.getString("start").replace(' ', 'T'))
-								: null,
+						rs.getString("start") != null ? LocalDate.parse(rs.getString("start").replace(' ', 'T')) : null,
 						rs.getString("description"), rs.getDouble("fee"));
 
 				Lecturer lecturer = new Lecturer(rs.getInt("lecturer_id"), rs.getString("lecturer_name"),
@@ -97,11 +95,15 @@ public class SubjectDao {
 	public void insert(Subject subject) {
 
 		try (Connection connection = dbUtility.doGetDbConnection();
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("insert into subject (subject_name, subject_code) values (?, ?);");) {
+				PreparedStatement preparedStatement = connection.prepareStatement(subject.getCourse() != null
+						? "insert into subject (subject_name, subject_code, course_id) values (?, ?, ?);"
+						: "insert into subject (subject_name, subject_code) values (?, ?);");) {
 
 			preparedStatement.setString(1, subject.getSubjectName());
 			preparedStatement.setString(2, subject.getSubjectCode());
+			if (subject.getCourse() != null) {
+				preparedStatement.setInt(3, subject.getCourse().getCourseId());
+			}
 			preparedStatement.executeUpdate();
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -114,11 +116,16 @@ public class SubjectDao {
 
 		try (Connection connection = dbUtility.doGetDbConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(
-						"update subject set subject_name = ?, subject_code = ? where subject_id = ?;");) {
+						"update subject set subject_name = ?, subject_code = ?, course_id = ? where subject_id = ?;");) {
 
 			preparedStatement.setString(1, subject.getSubjectName());
 			preparedStatement.setString(2, subject.getSubjectCode());
-			preparedStatement.setInt(3, subject.getSubjectId());
+			if (subject.getCourse() == null) {
+				preparedStatement.setNull(3, Types.INTEGER);
+			} else {
+				preparedStatement.setInt(3, subject.getCourse().getCourseId());
+			}
+			preparedStatement.setInt(4, subject.getSubjectId());
 			preparedStatement.executeUpdate();
 
 		} catch (ClassNotFoundException | SQLException e) {

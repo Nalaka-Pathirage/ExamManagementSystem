@@ -30,11 +30,11 @@ public class CoordinatorQuizAddController extends HttpServlet {
 		coordinatorExamQuizService.doLoadQuizAddPage(request, response);
 	}
 
-	// submit quize
+	// submit quiz
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// to be implemented
+		coordinatorExamQuizService.doSubmitQuiz(request, response);
 	}
 
 }

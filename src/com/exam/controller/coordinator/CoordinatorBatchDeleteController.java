@@ -8,26 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exam.service.coordinator.CoordinatorExamQuizService;
+import com.exam.service.coordinator.CoordinatorBatchService;
 
-@WebServlet("/Coordinator/Exam")
-public class CoordinatorExamController extends HttpServlet {
+@WebServlet("/Coordinator/BatchDelete")
+public class CoordinatorBatchDeleteController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private CoordinatorExamQuizService coordinatorExamQuizService;
+	private CoordinatorBatchService coordinatorBatchService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		coordinatorExamQuizService = new CoordinatorExamQuizService();
+		coordinatorBatchService = new CoordinatorBatchService();
 	}
 
-	// retrive coordinator exam management page
+	// retrive coordinator batch edit page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		coordinatorExamQuizService.doLoadExamPage(request, response);
+		coordinatorBatchService.doDeleteBatch(request, response);
 	}
-
 }

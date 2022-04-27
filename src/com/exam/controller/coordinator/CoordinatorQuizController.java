@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exam.service.coordinator.CoordinatorExamQuizService;
 
-@WebServlet("/CoordinatorQuiz")
+@WebServlet("/Coordinator/Quiz")
 public class CoordinatorQuizController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -28,13 +28,6 @@ public class CoordinatorQuizController extends HttpServlet {
 			throws ServletException, IOException {
 
 		coordinatorExamQuizService.doLoadQuizPage(request, response);
-	}
-
-	// submit quize
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// to be implemented
 	}
 
 }

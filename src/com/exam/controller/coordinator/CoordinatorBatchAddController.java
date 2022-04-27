@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exam.service.coordinator.CoordinatorBatchService;
 
-@WebServlet("/Coordinator/Batches")
-public class CoordinatorBatchController extends HttpServlet {
+@WebServlet("/Coordinator/BatchAdd")
+public class CoordinatorBatchAddController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,11 +23,18 @@ public class CoordinatorBatchController extends HttpServlet {
 		coordinatorBatchService = new CoordinatorBatchService();
 	}
 
-	// retrive coordinator batches management page
+	// retrive coordinator batch add page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		coordinatorBatchService.doLoadBatchHomePage(request, response);
+		coordinatorBatchService.doLoadBatchAddPage(request, response);
+	}
+
+	// submit new batch
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		coordinatorBatchService.doSubmitBatch(request, response);
 	}
 
 }
