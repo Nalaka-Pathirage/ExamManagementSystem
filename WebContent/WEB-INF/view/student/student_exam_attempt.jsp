@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Show Quiz</title>
+<title>Attempt Exam</title>
 <link href="${contextPath}/resource/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -15,19 +15,20 @@
 		<!-- Nav bar -->
 		<div class="row">
 			<div class="col">
-				<%@include file="coordinator_nav_bar.html"%>
+				<%@include file="student_nav_bar.html"%>
 			</div>
 		</div>
 		<!-- Page content -->
 		<div class="row">
 			<div class="col">
 				<div class="p-3 mb-2 bg-light text-dark">
-					<h3>Quiz View</h3>
+					<h3>Attempt Exam</h3>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<form>
+			<form method="post"
+				action="${contextPath}/Student/AttemptExam?ExamId=${requestScope.examId}">
 				<div class="mb-3">
 					<c:forEach items="${requestScope.quizExamWrapper.questions}"
 						var="question">
@@ -37,24 +38,23 @@
 								<input class="form-check-input" type="radio"
 									name="${question.questionNumber}"
 									id="${question.questionNumber}" value="${answer.key}">
-								<label class="form-check-label"
-									for="${question.questionNumber}"> ${answer.key}.
-									${answer.value} </label>
+								<label class="form-check-label" for="${question.questionNumber}">
+									${answer.key}. ${answer.value} </label>
 							</div>
 						</c:forEach>
 						<br>
 					</c:forEach>
 				</div>
 				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="submit" class="btn btn-danger">Submit</button>
+					<button type="submit" class="btn btn-danger">Submit Quiz</button>
 				</div>
 			</form>
 		</div>
-		<!-- Page footer -->
-		<footer>
-			<p align="center">© 2022 eLearning</p>
-		</footer>
 	</div>
+	<!-- Footer -->
+	<footer>
+		<p align="center">© 2022 eLearning</p>
+	</footer>
 	<script type="text/javascript"
 		src="${contextPath}/resource/bootstrap.bundle.min.js"></script>
 </body>

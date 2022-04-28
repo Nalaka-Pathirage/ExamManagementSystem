@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,12 @@ public class StudentDao {
 
 		Student student = null;
 		Registration registration = null;
+		Course course = null;
 
 		try (Connection connection = dbUtility.doGetDbConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(
-						"select * from student s inner join registration r on s.student_id = r.student_id where s.student_id = ?");) {
+						"select * from student s inner join registration r on s.student_id = r.student_id "
+								+ "inner join course c on c.course_id = s.course_id where s.student_id = ?");) {
 
 			preparedStatement.setInt(1, id);
 
@@ -50,8 +53,13 @@ public class StudentDao {
 						rs.getBoolean("payment_status"), rs.getBoolean("mail_sent"),
 						rs.getBoolean("registration_status"));
 
+				course = new Course(rs.getInt("course_id"), rs.getString("code"), rs.getString("name"),
+						rs.getDouble("duration"), LocalDate.parse(rs.getString("start").replace(' ', 'T')),
+						rs.getString("description"), rs.getDouble("fee"));
+
 				student = new Student(rs.getInt("student_id"), rs.getString("first_name"), rs.getString("last_name"),
-						rs.getString("nic"), rs.getString("mobile"), rs.getString("address"), null, registration, null);
+						rs.getString("nic"), rs.getString("mobile"), rs.getString("address"), null, registration,
+						course);
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

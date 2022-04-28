@@ -9,29 +9,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exam.service.student.StudentExamQuizService;
 
-@WebServlet("/StudentExam")
+@WebServlet("/Student/Exam")
 public class StudentExamController extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-    
+
 	private StudentExamQuizService studentExamQuizService;
-	
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		this.studentExamQuizService = new StudentExamQuizService();
 	}
 
-	//for retrieving the exam
+	// for retrieving the exam
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		studentExamQuizService.doRenderExamPage(request, response);
-	}
-
-	//for submitting the exam
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//to be implemented
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		studentExamQuizService.doLoadExamPage(request, response);
 	}
 
 }

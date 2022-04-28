@@ -63,8 +63,8 @@
 					<thead>
 						<tr>
 							<th scope="col">Question</th>
-							<th scope="col">Edit</th>
 							<th scope="col">View</th>
+							<th scope="col">Edit</th>
 							<th scope="col">Delete</th>
 						</tr>
 					</thead>
@@ -105,7 +105,7 @@
 						<div class="mb-3">
 							<label for="qNumber" class="form-label">Quiz Name :</label> <input
 								type="text" class="form-control" id="qName" name="qName"
-								value="${sessionScope.generatedExamQuiz.examQuizName}" readonly>
+								placeholder="${sessionScope.generatedExamQuiz.examQuizName}" readonly>
 						</div>
 					</div>
 					<div class="col">

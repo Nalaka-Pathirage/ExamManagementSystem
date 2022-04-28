@@ -2,6 +2,7 @@ package com.exam.service.coordinator;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import com.exam.model.Subject;
 import com.exam.utility.HelperUtility;
 import com.exam.wrappers.QuestionWrapper;
 import com.exam.wrappers.QuizExamWrapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CoordinatorExamQuizService {
 
@@ -35,6 +35,12 @@ public class CoordinatorExamQuizService {
 	// for rendering exam page
 	public void doLoadExamPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// fetch all available quizes
+		List<ExamQuiz> exams = examQuizDao.findAllExams();
+
+		// put in the request scope
+		request.setAttribute("exams", exams);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/coordinator/coordinator_exam.jsp");
 		dispatcher.forward(request, response);
@@ -85,9 +91,64 @@ public class CoordinatorExamQuizService {
 	}
 
 	// for submitting exams
-	public void doSubmitExam() {
+	public void doSubmitExam(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		// to be implemented
+		// obtaining http session
+		HttpSession session = request.getSession();
+		// retrieving loggedIn user
+		Coordinator coordinator = (Coordinator) session.getAttribute("loggedInUser");
+		// retrieving generated exam
+		ExamQuiz examQuiz = (ExamQuiz) session.getAttribute("generatedExamQuiz");
+		// retrieving added questions
+		QuizExamWrapper quizExamWrapper = (QuizExamWrapper) session.getAttribute("quizExamWrapper");
+		// fetching question within the outer wrapper
+		List<QuestionWrapper> questions = quizExamWrapper != null ? quizExamWrapper.getQuestions() : null;
+
+		switch (request.getParameter("flag")) {
+
+		// generate quiz
+		case "G":
+			if (examQuiz == null) {
+				// assemble exam/quiz instance
+				examQuiz = new ExamQuiz(request.getParameter("qName"), "E", LocalDateTime.now(), coordinator,
+						new Subject(Integer.parseInt(request.getParameter("subject"))));
+				// store within user session
+				session.setAttribute("generatedExamQuiz", examQuiz);
+			}
+			// loading exam add page
+			doLoadExamAddPage(request, response);
+			break;
+		// add questions
+		case "A":
+			if (quizExamWrapper == null) {
+				quizExamWrapper = new QuizExamWrapper();
+				questions = new ArrayList<>();
+				quizExamWrapper.setQuestions(questions);
+				// store within user session
+				session.setAttribute("quizExamWrapper", quizExamWrapper);
+			}
+			QuestionWrapper questionWrapper = new QuestionWrapper(Integer.parseInt(request.getParameter("qNumber")),
+					request.getParameter("question"),
+					assembleAvailableAnswers(request.getParameter("availableAnswers").split(",")),
+					Integer.parseInt(request.getParameter("correctAnswer")));
+			questions.add(questionWrapper);
+			// loading exam add page
+			doLoadExamAddPage(request, response);
+			break;
+		// submit exam
+		case "S":
+			if (examQuiz != null && quizExamWrapper != null) {
+				examQuiz.setQuestions(HelperUtility.serialize(quizExamWrapper));
+				examQuizDao.insert(examQuiz);
+				// cleaning the session
+				session.removeAttribute("generatedExamQuiz");
+				session.removeAttribute("quizExamWrapper");
+			}
+			// load quiz home page
+			doLoadExamPage(request, response);
+			break;
+		}
 	}
 
 	// for submitting quizes
@@ -102,6 +163,8 @@ public class CoordinatorExamQuizService {
 		ExamQuiz examQuiz = (ExamQuiz) session.getAttribute("generatedExamQuiz");
 		// retrieving added questions
 		QuizExamWrapper quizExamWrapper = (QuizExamWrapper) session.getAttribute("quizExamWrapper");
+		// fetching question within the outer wrapper
+		List<QuestionWrapper> questions = quizExamWrapper != null ? quizExamWrapper.getQuestions() : null;
 
 		switch (request.getParameter("flag")) {
 
@@ -121,6 +184,8 @@ public class CoordinatorExamQuizService {
 		case "A":
 			if (quizExamWrapper == null) {
 				quizExamWrapper = new QuizExamWrapper();
+				questions = new ArrayList<>();
+				quizExamWrapper.setQuestions(questions);
 				// store within user session
 				session.setAttribute("quizExamWrapper", quizExamWrapper);
 			}
@@ -128,7 +193,7 @@ public class CoordinatorExamQuizService {
 					request.getParameter("question"),
 					assembleAvailableAnswers(request.getParameter("availableAnswers").split(",")),
 					Integer.parseInt(request.getParameter("correctAnswer")));
-			quizExamWrapper.setQuestions(questionWrapper);
+			questions.add(questionWrapper);
 			// loading quiz add page
 			doLoadQuizAddPage(request, response);
 			break;
@@ -147,6 +212,25 @@ public class CoordinatorExamQuizService {
 		}
 	}
 
+	// rendering exam show page
+	public void doLoadShowExam(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// fetch all available quizes
+		ExamQuiz exam = examQuizDao.findById(Integer.parseInt(request.getParameter("ExamId")));
+
+		// extrating questions in quiz
+		QuizExamWrapper quizExamWrapper = (QuizExamWrapper) HelperUtility.deserialize(exam.getQuestions(),
+				QuizExamWrapper.class);
+
+		// put in the request scope
+		request.setAttribute("quizExamWrapper", quizExamWrapper);
+
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/WEB-INF/view/coordinator/coordinator_exam_show.jsp");
+		dispatcher.forward(request, response);
+	}
+
 	// rendering quiz show page
 	public void doLoadShowQuiz(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -154,19 +238,48 @@ public class CoordinatorExamQuizService {
 		// fetch all available quizes
 		ExamQuiz quiz = examQuizDao.findById(Integer.parseInt(request.getParameter("QuizId")));
 
-//		 ObjectMapper objectMapper = new ObjectMapper();
-//		 QuizExamWrapper quizExamWrapper = objectMapper.readValue(quiz.getQuestions(), QuizExamWrapper.class);
-		
 		// extrating questions in quiz
-//		QuizExamWrapper quizExamWrapper = (QuizExamWrapper) HelperUtility.deserialize(quiz.getQuestions(),
-//				QuizExamWrapper.class);
+		QuizExamWrapper quizExamWrapper = (QuizExamWrapper) HelperUtility.deserialize(quiz.getQuestions(),
+				QuizExamWrapper.class);
 
 		// put in the request scope
-//		request.setAttribute("quizExamWrapper", quizExamWrapper);
+		request.setAttribute("quizExamWrapper", quizExamWrapper);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/view/coordinator/coordinator_quiz_show.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	// editing exam
+	public void doEditExam() {
+
+	}
+
+	// editting the quiz
+	public void doEditQuiz() {
+
+	}
+
+	// deleting exam
+	public void doDeleteExam(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// deleting the quiz
+		examQuizDao.delete(Integer.parseInt(request.getParameter("ExamId")));
+
+		// loading quiz home page
+		doLoadExamPage(request, response);
+	}
+
+	// deleting the quiz
+	public void doDeleteQuiz(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// deleting the quiz
+		examQuizDao.delete(Integer.parseInt(request.getParameter("QuizId")));
+
+		// loading quiz home page
+		doLoadQuizPage(request, response);
 	}
 
 	// assemble available answers list

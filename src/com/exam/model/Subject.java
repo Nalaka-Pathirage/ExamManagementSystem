@@ -94,11 +94,4 @@ public class Subject {
 		this.lecturer = lecturer;
 	}
 
-	@Override
-	public String toString() {
-		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", subjectCode=" + subjectCode
-				+ ", course=" + course != null ? course.toString()
-						: null + ", lecturer=" + lecturer != null ? lecturer.toString() : null + "]";
-	}
-
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Show Quiz</title>
+<title>View Exam</title>
 <link href="${contextPath}/resource/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -22,7 +22,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="p-3 mb-2 bg-light text-dark">
-					<h3>Quiz View</h3>
+					<h3>Exam View</h3>
 				</div>
 			</div>
 		</div>
@@ -37,16 +37,15 @@
 								<input class="form-check-input" type="radio"
 									name="${question.questionNumber}"
 									id="${question.questionNumber}" value="${answer.key}">
-								<label class="form-check-label"
-									for="${question.questionNumber}"> ${answer.key}.
-									${answer.value} </label>
+								<label class="form-check-label" for="${question.questionNumber}">
+									${answer.key}. ${answer.value} </label>
 							</div>
 						</c:forEach>
 						<br>
 					</c:forEach>
 				</div>
 				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="submit" class="btn btn-danger">Submit</button>
+					<button type="submit" class="btn btn-danger">Submit Exam</button>
 				</div>
 			</form>
 		</div>

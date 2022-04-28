@@ -1,32 +1,26 @@
 package com.exam.wrappers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuizExamWrapper {
 
-	private List<QuestionWrapper> questions = new ArrayList<>();
+	private List<QuestionWrapper> questions;
 
 	public QuizExamWrapper() {
 		super();
 	}
 
-	public QuizExamWrapper(QuestionWrapper questions) {
+	public QuizExamWrapper(List<QuestionWrapper> questions) {
 		super();
-		this.questions.add(questions);
+		this.questions = questions;
 	}
 
 	public List<QuestionWrapper> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(QuestionWrapper questions) {
-		this.questions.add(questions);
-	}
-
-	@Override
-	public String toString() {
-		return "QuizExamWrapper [questions=" + questions + "]";
+	public void setQuestions(List<QuestionWrapper> questions) {
+		this.questions = questions;
 	}
 
 }

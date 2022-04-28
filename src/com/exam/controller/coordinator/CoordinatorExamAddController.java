@@ -34,7 +34,7 @@ public class CoordinatorExamAddController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// to be implemented
+		coordinatorExamQuizService.doSubmitExam(request, response);
 	}
 
 }

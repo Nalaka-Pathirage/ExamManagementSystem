@@ -121,7 +121,7 @@ public class AuthenticationService {
 
 			// setting pending approval stduents inside request scope
 			request.setAttribute("students", students);
-			dispatcher = request.getRequestDispatcher("/WEB-INF/view/admin/admin_home.jsp");
+			dispatcher = request.getRequestDispatcher("/WEB-INF/view/admin/admin_approvals.jsp");
 
 			// coordinator login
 		} else if (login.getCoordinator() != null) {
@@ -170,6 +170,8 @@ public class AuthenticationService {
 			// registration is clear
 		} else {
 			request.setAttribute("allClear", true);
+			// setting student in request instance
+			request.setAttribute("student", student);
 
 		}
 

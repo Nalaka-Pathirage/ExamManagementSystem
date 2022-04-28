@@ -7,6 +7,7 @@ public class HelperUtility {
 
 	// serializing instances
 	public static String serialize(Object object) {
+		
 		String serializedValue = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
@@ -23,7 +24,7 @@ public class HelperUtility {
 		Object object = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			object = objectMapper.readValue(json, model.getClass());
+			object = objectMapper.readValue(json, model);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

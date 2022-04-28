@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exam.service.student.StudentExamQuizService;
 
-@WebServlet("/Student/Quiz")
-public class StudentQuizController extends HttpServlet {
+@WebServlet("/Student/AttemptExam")
+public class StudentAttemptExamController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,10 +22,16 @@ public class StudentQuizController extends HttpServlet {
 		this.studentExamQuizService = new StudentExamQuizService();
 	}
 
-	// for retrieving student quiz page
+	// controller endpoint for retrieving student exam attempt page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		studentExamQuizService.doLoadQuizPage(request, response);
+		studentExamQuizService.doLoadAttemptExamPage(request, response);
+	}
+
+	// controller endpoint for submitting the exam
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		studentExamQuizService.doSubmitExam(request, response);
 	}
 
 }

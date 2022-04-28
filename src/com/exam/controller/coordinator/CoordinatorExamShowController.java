@@ -1,32 +1,33 @@
-package com.exam.controller.student;
+package com.exam.controller.coordinator;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exam.service.student.StudentHomeService;
+import com.exam.service.coordinator.CoordinatorExamQuizService;
 
-@WebServlet("/Student/Home")
-public class StudentHomeController extends HttpServlet {
+@WebServlet("/Coordinator/ShowExam")
+public class CoordinatorExamShowController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private StudentHomeService studentHomeService;
+	private CoordinatorExamQuizService coordinatorExamQuizService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.studentHomeService = new StudentHomeService();
+		coordinatorExamQuizService = new CoordinatorExamQuizService();
 	}
 
-	// for retrieving student home page
-	@Override
+	// retrive coordinator show exam page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		studentHomeService.doLoadHomePage(request, response);
+
+		coordinatorExamQuizService.doLoadShowExam(request, response);
 	}
 
 }

@@ -9,6 +9,10 @@ public class QuestionWrapper {
 	private Map<Integer, String> answers;
 	private Integer correctAnswer;
 
+	public QuestionWrapper() {
+		super();
+	}
+
 	public QuestionWrapper(Integer questionNumber, String question, Map<Integer, String> answers,
 			Integer correctAnswer) {
 		super();

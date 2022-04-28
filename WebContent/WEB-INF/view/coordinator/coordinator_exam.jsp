@@ -63,22 +63,23 @@
 					</thead>
 					<tbody>
 						<!-- populating table body -->
-						<!-- <c:forEach items="${requestScope.exams}" var="exam">
+						<c:forEach items="${requestScope.exams}" var="exam">
 							<tr>
-								<td scope="col">${exam.name}</td>
+								<td scope="col">${exam.examQuizName}</td>
 								<td scope="col">${exam.addedOn}</td>
-								<td scope="col">${exam.addedBy}</td>
-								<td scope="col">${exam.subject}</td>
+								<td scope="col">${exam.addedBy.firstName}
+									${exam.addedBy.lastName}</td>
+								<td scope="col">${exam.subject.subjectName}</td>
 								<td scope="col"><a class="text-success"
-									href="${contextPath}/Coordinator/ShowExam?QuizId=${exam.examId}">Show
-										Quiz</a></td>
+									href="${contextPath}/Coordinator/ShowExam?ExamId=${exam.examQuizId}">Show
+										Exam</a></td>
 								<td scope="col"><a class="text-info"
-									href="${contextPath}/Coordinator/EditExam?QuizId=${quiz.examId}">Edit</a></td>
+									href="${contextPath}/Coordinator/EditExam?ExamId=${exam.examQuizId}">Edit</a></td>
 								<td scope="col"><a class="text-danger"
-									href="${contextPath}/Coordinator/DeleteExam?QuizId=${quiz.examId}">Delete</a></td>
+									href="${contextPath}/Coordinator/DeleteExam?ExamId=${exam.examQuizId}">Delete</a></td>
 							</tr>
 						</c:forEach>
-					</tbody> -->
+					</tbody>
 				</table>
 			</div>
 		</div>
