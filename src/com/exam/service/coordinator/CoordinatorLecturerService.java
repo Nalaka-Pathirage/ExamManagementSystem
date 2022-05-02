@@ -97,7 +97,7 @@ public class CoordinatorLecturerService {
 	public void doEditLecturer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Lecturer lecturer = new Lecturer(request.getParameter("fullName"), request.getParameter("stream"),
+		Lecturer lecturer = new Lecturer(Integer.parseInt(request.getParameter("lecturerId")), request.getParameter("fullName"), request.getParameter("stream"),
 				request.getParameter("qualification"), request.getParameter("mobile"),
 				new Subject(Integer.parseInt(request.getParameter("course"))));
 
