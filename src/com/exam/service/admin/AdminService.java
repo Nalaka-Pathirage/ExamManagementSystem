@@ -16,6 +16,8 @@ import com.exam.dao.StudentDao;
 import com.exam.model.Coordinator;
 import com.exam.model.Login;
 import com.exam.model.Student;
+import com.exam.utility.HelperUtility;
+import com.exam.wrappers.RegistrationReportWrapper;
 
 public class AdminService {
 
@@ -212,4 +214,33 @@ public class AdminService {
 		dispatcher.forward(request, response);
 	}
 
+	// render report page
+	public void doLoadReportPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// fetching data for visualizing
+		RegistrationReportWrapper registrationReportWrapper = new RegistrationReportWrapper(
+				registrationDao.getTotalRegistrations());
+
+		// setting assembled data wrapper inside request scope
+		request.setAttribute("registrationReportWrapper", registrationReportWrapper);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/admin/admin_reports.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	// produce report data
+	public void doDisplayReportData(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// fetching data for visualizing
+		RegistrationReportWrapper registrationReportWrapper = new RegistrationReportWrapper(
+				registrationDao.getTotalRegistrations());
+
+		// serializing the model wrapper
+		String payload = HelperUtility.serialize(registrationReportWrapper);
+
+		response.getOutputStream().println(payload);
+
+	}
 }

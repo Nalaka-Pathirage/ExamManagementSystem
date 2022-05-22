@@ -15,6 +15,7 @@ import com.exam.model.Login;
 import com.exam.model.Registration;
 import com.exam.model.Student;
 import com.exam.utility.DbUtility;
+import com.exam.wrappers.RegistrationWrapper;
 
 public class RegistrationDao {
 
@@ -173,5 +174,32 @@ public class RegistrationDao {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// get total registration details
+	public List<RegistrationWrapper> getTotalRegistrations() {
+
+		List<RegistrationWrapper> registrations = new ArrayList<RegistrationWrapper>();
+
+		try (Connection connection = dbUtility.doGetDbConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("select c.name, c.code, c.start, count(s.student_id) as count from course c\n"
+								+ "inner join student s on c.course_id = s.course_id\n" + "group by c.course_id;");) {
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next() != false) {
+
+				RegistrationWrapper registrationWrapper = new RegistrationWrapper(rs.getString("name"),
+						rs.getString("code"), rs.getString("start").split("-")[0], rs.getInt("count"));
+
+				registrations.add(registrationWrapper);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		return registrations;
 	}
 }
